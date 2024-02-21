@@ -14,7 +14,7 @@ public class Review
 
     public static List<Review> GetReviews()
     {
-        var apiCallTask = APiHelper.GetAll();
+        var apiCallTask = ApiHelper.GetAll();
         var result = apiCallTask.Result;
 
         JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
@@ -25,7 +25,7 @@ public class Review
 
     public static Review GetDetails(int id)
     {
-        var apiCallTask = APiHelper.GetDetails(id);
+        var apiCallTask = ApiHelper.GetDetails(id);
         var result = apiCallTask.Result;
 
         JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
@@ -37,18 +37,24 @@ public class Review
     public static void Post(Review review)
     {
         string jsonReview = JsonConvert.SerializeObject(review);
-        APiHelper.Put(review.ReviewId, jsonReview);
+        ApiHelper.Put(review.ReviewId, jsonReview);
+    }
+
+    public static void Put(Review review)
+    {
+      string jsonReview = JsonConvert.SerializeObject(review);
+      ApiHelper.Put(review.ReviewId, jsonReview);
     }
 
     public static void Delete(int id)
     {
-        APiHelper.Delete(id);
+        ApiHelper.Delete(id);
     }
 
     public static void Patch(int id, Review patchedReview)
     {
         string jsonReview = JsonConvert.SerializeObject(patchedReview);
-        APiHelper.Patch(patchedReview.ReviewId, jsonReview);
+        ApiHelper.Patch(patchedReview.ReviewId, jsonReview);
     }
 
 }

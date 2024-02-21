@@ -7,4 +7,7 @@
 <p>Rating: @Model.Rating</p>
 <p>Description: @Model.Description</p>
 
-@Html.ActionLink("Return to all reviews", "Index")
+<p>@Html.ActionLink("Edit details", "Edit", new { id = @Model.ReviewId })</p>
+<p>@Html.ActionLink("Delete review", "Delete", new { id = @Model.ReviewId })</p>
+<p>@Html.ActionLink("Return to all reviews", "Index")</p>
+

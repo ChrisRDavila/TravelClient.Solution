@@ -8,7 +8,7 @@ public class ReviewsController : Controller
   public IActionResult Index()
   {
     List<Review> reviews = Review.GetReviews();
-    return View(reviews)
+    return View(reviews);
   }  
 
   public IActionResult Details(int id)

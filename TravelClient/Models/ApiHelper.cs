@@ -3,7 +3,7 @@ using RestSharp;
 
 namespace TravelClient.Models
 {
-  public class APiHelper
+  public class ApiHelper
   {
     public static async Task<string> GetAll()
     {
@@ -54,6 +54,25 @@ namespace TravelClient.Models
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newReview);
       await client.PatchAsync(request);
+    }
+
+    public static async Task<string> SignInUser(string _userId)
+    {
+      RestClient client = new RestClient("http://localhost:5232/");
+      RestRequest request = new RestRequest($"api/v1/accounts/SignIn/{_userId}", Method.Get);
+      //not sure if need to tack on {userId}
+      RestResponse response = await client.GetAsync(request);
+      return response.Content;
+    }
+
+    public static async Task<string> Register(string user)
+    {
+      RestClient client = new RestClient("http://localhost:5232/");
+      RestRequest request = new RestRequest($"api/v1/accounts/Register", Method.Post);
+      request.AddHeader("Content-Type", "application/json");
+      request.AddJsonBody(user);
+      RestResponse response = await client.PostAsync(request);
+      return response.Content;
     }
   }
 }

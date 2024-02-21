@@ -1,0 +1,14 @@
+@{
+  ViewData["Title"] = $"Delete {Model.City}, {Model.Country}";
+}
+
+@model TravelClient.Models.Review
+
+<h4>Are you sure you want to delete @Model.City, @Model.Country?</h4>
+
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete" class="btn btn-primary"/>
+}
+
+@Html.ActionLink("Back to details", "Details", new { id = @Model.ReviewId})
