@@ -37,7 +37,7 @@ public class Review
     public static void Post(Review review)
     {
         string jsonReview = JsonConvert.SerializeObject(review);
-        ApiHelper.Put(review.ReviewId, jsonReview);
+        ApiHelper.Post(jsonReview);
     }
 
     public static void Put(Review review)

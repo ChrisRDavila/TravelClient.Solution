@@ -8,7 +8,7 @@ namespace TravelClient.Models
     public static async Task<string> GetAll()
     {
       RestClient client = new RestClient("http://localhost:5232/");
-      RestRequest request = new RestRequest($"api/reviews", Method.Get);
+      RestRequest request = new RestRequest($"api/v1/reviews", Method.Get);
       RestResponse response = await client.GetAsync(request);
       return response.Content;
     }
@@ -16,15 +16,15 @@ namespace TravelClient.Models
     public static async Task<string> GetDetails(int id)
     {
       RestClient client = new RestClient("http://localhost:5232/");
-      RestRequest request = new RestRequest($"api/reviews/{id}", Method.Get);
+      RestRequest request = new RestRequest($"api/v1/reviews/{id}", Method.Get);
       RestResponse response = await client.GetAsync(request);
       return response.Content;
     }
 
-    public static async Task Post(string newReview)
+    public static async void Post(string newReview)
     {
       RestClient client = new RestClient("http://localhost:5232/");
-      RestRequest request = new RestRequest($"api/reviews", Method.Post);
+      RestRequest request = new RestRequest($"api/v1/reviews", Method.Post);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newReview);
       await client.PostAsync(request);
@@ -33,7 +33,7 @@ namespace TravelClient.Models
     public static async void Put(int id, string newReview)
     {
       RestClient client = new RestClient("http://localhost:5232/");
-      RestRequest request = new RestRequest($"api/reviews/{id}", Method.Put);
+      RestRequest request = new RestRequest($"api/v1/reviews/{id}", Method.Put);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newReview);
       await client.PutAsync(request);
@@ -42,7 +42,7 @@ namespace TravelClient.Models
     public static async void Delete(int id)
     {
       RestClient client = new RestClient("http://localhost:5232/");
-      RestRequest request = new RestRequest($"api/reviews/{id}", Method.Delete);
+      RestRequest request = new RestRequest($"api/v1/reviews/{id}", Method.Delete);
       request.AddHeader("Content-Type", "application/json");
       await client.DeleteAsync(request);
     }

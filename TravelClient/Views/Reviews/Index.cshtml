@@ -1,6 +1,3 @@
-@{
-    ViewData["Title"] = "Reviews";
-}
 
 <h1>All Travel Reviews:</h1>
 
@@ -10,9 +7,19 @@
 
 <h3>Reviews:</h3>
 
-<ol>
-@foreach (Review review in Model)
-{
-  <li><strong>@review.City</strong>, @review.Country | <a href="/Reviews/Details/@(review.ReviewId)">View Details</a></li>
-}
-</ol>
+<div class="row">
+    @foreach (Review review in Model.ReviewPages)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">@review.City</h5>
+                    <p class="card-text">@review.Country</p>
+                    <a href="/Reviews/Details/@(review.ReviewId)" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+    <a href="/Reviews?page=@(Model.Page + 1)"><button class="page-link">Next</button></a>
+    @if(Mo)
+</div>

@@ -1,0 +1,108 @@
+@* index.cshtml for reviews views *@
+
+@* @{
+    ViewData["Title"] = "Reviews";
+    int pageSize = 1;
+    int currentPage = ViewBag.CurrentPage;
+    int startIndex = (currentPage - 1) * pageSize; // (1-1) * 1
+    int endIndex = Math.Min(startIndex + pageSize, Model.Count);
+    List<Review> reviews = Model.GetRange(startIndex, endIndex - startIndex);
+}
+
+<h1>All Travel Reviews:</h1>
+
+<h3>Actions:</h3>
+
+<p>@Html.ActionLink("Add a new review", "Create")</p>
+
+<h3>Reviews:</h3>
+
+<div class="row">
+    @foreach (Review review in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">@review.City</h5>
+                    <p class="card-text">@review.Country</p>
+                    <a href="/Reviews/Details/@(review.ReviewId)" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col">
+        <ul class="pagination">
+            @if (currentPage > 1)
+            {
+                <a href="/Reviews?page=@(currentPage - 1)&pageSize=@pageSize"><button class="page-link">Prev</button></a>
+            }
+            @for (int i = 1; i <= Math.Ceiling((double)Model.Count / ViewBag.pageSize); i++)
+            {
+                <li class="page-item @(currentPage == i ? "active" : "")">
+                    <a class="page-link" href="/Reviews?page=@i&pageSize=@pageSize">@i</a>
+                </li>
+            }
+            @if (currentPage < Math.Ceiling((double)Model.Count / pageSize))
+            {
+                <a href="/Reviews?page=@(currentPage + 1)&pageSize=@pageSize"><button class="page-link">Next</button></a>
+            }
+        </ul>
+    </div>
+</div> *@
+
+@* pagination (bottom of index views) for reviews views *@
+@* <div class="row">
+    <div class="col">
+        <ul class="pagination">
+            @if (currentPage > 1)
+            {
+                <a href="/Reviews?page=@(Model.Page +1)&pageSize=@pageSize"><button class="page-link">Prev</button></a>
+            }
+            @for (int i = 1; i <= Math.Ceiling((double)Model.Count / ViewBag.pageSize); i++)
+            {
+                <li class="page-item @(currentPage == i ? "active" : "")">
+                    <a class="page-link" href="/Reviews?page=@i&pageSize=@pageSize">@i</a>
+                </li>
+            }
+            @if (currentPage < Math.Ceiling((double)Model.Count / pageSize))
+            {
+                <a href="/Reviews?page=@(currentPage + 1)&pageSize=@pageSize"><button class="page-link">Next</button></a>
+            }
+        </ul>
+    </div>
+</div> *@
+
+
+
+@* index() for reviewcontroller *@
+@* public async Task<IActionResult> Index(int page = 1, int pageSize = 3)
+  {
+    // Review review = new Review();
+    List<Review> reviewList = new List<Review> { };
+    using (var httpClient = new HttpClient())
+    {
+      using (var response = await httpClient.GetAsync($"http://localhost:5232/api/v1/reviews?page={page}&pagesize={pageSize}"))
+      {
+        var reviewContent = await response.Content.ReadAsStringAsync();
+        JArray reviewArray = JArray.Parse(reviewContent);
+        reviewList = reviewArray.ToObject<List<Review>>();
+        //ReviewPage reviewPage = new() {
+        //ReviewPages = reviewList,
+        //Page = page
+        //}
+      }
+    }
+    
+
+    ViewBag.TotalPages = reviewList.Count();
+    //page number inside the url
+    ViewBag.CurrentPage = page;
+    //amnt of items on the page
+    ViewBag.PageSize = pageSize;
+     //the amount of destinations returned from our database
+    // ViewBag.Pages = pageCount;
+
+    return View(reviewList);
+  } *@
