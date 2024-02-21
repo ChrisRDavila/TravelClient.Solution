@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TravelClient.Models;
 
-namespace TravelCLient.Controllers;
+namespace TravelClient.Controllers;
 
 public class ReviewsController : Controller 
 {
