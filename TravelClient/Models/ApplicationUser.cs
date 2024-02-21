@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using TravelClient.ViewModels;
 
 namespace TravelClient.Models;
 
@@ -19,14 +20,25 @@ public class ApplicationUser : IdentityUser
 
     }
 
-    public static async void Register(ApplicationUser user)
+    public static List<ApplicationUser> GetUsers()
     {
-        string jsonUser = JsonConvert.SerializeObject(user);
-        await ApiHelper.Post(jsonUser);
+        var apiCallTask = ApiHelper.GetAll();
+        var result = apiCallTask.Result;
+
+        JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+        List<ApplicationUser> userList = JsonConvert.DeserializeObject<List<ApplicationUser>>(jsonResponse.ToString());
+
+        return userList;
+    }
+
+    public static async void RegisterUser(RegisterViewModel user)
+    {
+      string jsonUser = JsonConvert.SerializeObject(user);
+      await ApiHelper.RegisterUser(jsonUser);
     }
 
     public static void DeleteUser(int _userId)
     {
-        ApiHelper.Delete(_userId);
+      ApiHelper.Delete(_userId);
     }
 }

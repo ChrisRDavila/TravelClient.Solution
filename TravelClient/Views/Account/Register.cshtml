@@ -1,0 +1,32 @@
+@using TravelClient.ViewModels
+
+@model RegisterViewModel
+
+
+<h2>Create an account</h2>
+<hr />
+
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:")
+}
+<div class="form-div">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <div class="form-layout">
+            @Html.LabelFor(user => user.Email)
+            @Html.TextBoxFor(user => user.Email)
+
+            @Html.LabelFor(user => user.UserName)
+            @Html.TextBoxFor(user => user.UserName)
+
+            @Html.LabelFor(user => user.Password)
+            @Html.EditorFor(user => user.Password)
+
+            @Html.LabelFor(user => user.ConfirmPassword)
+            @Html.EditorFor(user => user.ConfirmPassword)
+
+            <input class="form-button" type="submit" value="Register" />
+        </div>
+    }
+</div>

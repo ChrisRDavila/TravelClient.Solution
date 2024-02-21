@@ -60,12 +60,12 @@ namespace TravelClient.Models
     {
       RestClient client = new RestClient("http://localhost:5232/");
       RestRequest request = new RestRequest($"api/v1/accounts/SignIn/{_userId}", Method.Get);
-      //not sure if need to tack on {userId}
+      //not sure if need to tack on {userId} and should we remove v1?
       RestResponse response = await client.GetAsync(request);
       return response.Content;
     }
 
-    public static async Task<string> Register(string user)
+    public static async Task<string> RegisterUser(string user)
     {
       RestClient client = new RestClient("http://localhost:5232/");
       RestRequest request = new RestRequest($"api/v1/accounts/Register", Method.Post);
@@ -73,6 +73,22 @@ namespace TravelClient.Models
       request.AddJsonBody(user);
       RestResponse response = await client.PostAsync(request);
       return response.Content;
+    }
+
+    public static async Task<string> GetAllUsers()
+    {
+      RestClient client = new RestClient("http://localhost:5232/");
+      RestRequest request = new RestRequest($"api/v1/accounts", Method.Get);
+      RestResponse response = await client.GetAsync(request);
+      return response.Content;
+    }
+
+    public static async void DeleteUser(int _userId)
+    {
+      RestClient client = new RestClient("http://localhost:5232/");
+      RestRequest request = new RestRequest($"api/v1/accounts/{_userId}", Method.Delete);
+      request.AddHeader("Content-Type", "application/json");
+      await client.DeleteAsync(request);
     }
   }
 }
