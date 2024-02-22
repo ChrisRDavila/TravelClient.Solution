@@ -10,17 +10,21 @@
 <h3>Reviews:</h3>
 
 <div class="row">
+)
     @foreach (Review review in Model.ReviewPages)
     {
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">@review.City</h5>
-                    <p class="card-text">@review.Country</p>
-                    <a href="/Reviews/Details/@(review.ReviewId)" class="btn btn-primary">Details</a>
+        @if (review != null) //just added this a body brackets, need to test with api
+        {
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">@review.City</h5>
+                        <p class="card-text">@review.Country</p>
+                        <a href="/Reviews/Details/@(review.ReviewId)" class="btn btn-primary">Details</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
 
 <a href="/Reviews?page=@(Model.Page + 1)"><button class="page-link">Next</button></a>
