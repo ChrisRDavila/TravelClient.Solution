@@ -2,6 +2,8 @@
 <h1>All Travel Reviews:</h1>
 
 <h3>Actions:</h3>
+<h1>@Model.ReviewPages.Count</h1>
+<h1>Page Number: @Model.CurrentPage</h1>
 
 <p>@Html.ActionLink("Add a new review", "Create")</p>
 
@@ -20,6 +22,11 @@
             </div>
         </div>
     }
-    <a href="/Reviews?page=@(Model.Page + 1)"><button class="page-link">Next</button></a>
-    @if(Mo)
+
+<a href="/Reviews?page=@(Model.Page + 1)"><button class="page-link">Next</button></a>
+
+@if(Model.Page > 1 || Model.Page < Model.CurrentPage)
+{
+    <a href="/Reviews?page=@(Model.Page - 1)"><button class="page-link">Prev</button></a> 
+}
 </div>

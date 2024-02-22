@@ -31,12 +31,12 @@ public class ReviewsController : Controller
         reviewList = reviewArray.ToObject<List<Review>>();
         reviewPage.ReviewPages = reviewList;
         reviewPage.Page = page;
+        reviewPage.CurrentPage += page;
+        
       }
     }
     
-
-    // ViewBag.TotalPages = reviewList.Count();
-    //page number inside the url
+    
     // ViewBag.CurrentPage = page;
     //amnt of items on the page
     // ViewBag.PageSize = pageSize;
@@ -74,7 +74,7 @@ public class ReviewsController : Controller
   public ActionResult Edit(Review review)
   {
     Review.Put(review);
-    return View(review);
+    return RedirectToAction("Index");
   }
 
   public ActionResult Delete(int id)
